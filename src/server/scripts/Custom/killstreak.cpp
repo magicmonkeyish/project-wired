@@ -33,6 +33,8 @@ public:
 
                 uint64 KillerGUID = Killer->GetGUID();
                 uint64 VictimGUID = Victim->GetGUID();
+                // std::string KillerName = Killer->GetName();
+				// std::string VictimName = Victim->Getname();
 
                 if( KillerGUID == VictimGUID || KillStreakData[KillerGUID].lastkill == VictimGUID )
                         return;
@@ -49,14 +51,14 @@ public:
                 KillStreakData[VictimGUID].killstreak = 0;
                 KillStreakData[VictimGUID].lastkill = 0;
                 
-                if(KillStreakData[VictimGUID].killstreak >= 5) // victim has 5 or more kills, announce end of their killstreak
+                if (KillStreakData[VictimGUID].killstreak >= 5) // victim has 5 or more kills, announce end of their killstreak
                 {
                         char msg[200];
-                        snprintf(msg, 200, "|cFF00FF00[PvP System]: %s has ended %s's killstreak of %u!", Killer->GetName(), Victim->GetName(), KillStreakData[VictimGUID].killstreak);
+                        snprintf(msg, 200, "|cFF00FF00[PvP System]: %s has ended %s's killstreak of %u!", Killer->GetName().c_str(), Victim->GetName().c_str(), KillStreakData[VictimGUID].killstreak);
                         sWorld->SendServerMessage(SERVER_MSG_STRING, msg);
                 }
 
-                if( KillStreakData[KillerGUID].killstreak % 1 == 0 ) // get 1 badge per kill
+                if (KillStreakData[KillerGUID].killstreak % 1 == 0) // get 1 badge per kill
                 {
                         Killer->AddItem(49426, 1);
                 }
@@ -65,7 +67,7 @@ public:
                 {
                         char msg[200];
 						//alertServer(Killer, Victim, KillStreakData[KillerGUID].killstreak, 1);
-                        snprintf(msg, 200, "|cFF00FF00[PvP System]: %s is on a killstreak of %u!", Killer->GetName(), KillStreakData[KillerGUID].killstreak);
+                        snprintf(msg, 200, "|cFF00FF00[PvP System]: %s is on a killstreak of %u!", Killer->GetName().c_str(), KillStreakData[KillerGUID].killstreak);
                         sWorld->SendServerMessage(SERVER_MSG_STRING, msg);
                 }
 
